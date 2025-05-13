@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Panier - FoodBox</title>
+  <link rel="stylesheet" href="fb2.css">
+</head>
+<body>
+  <header>
+    <img src="img/logo" alt="Logo FoodBox">
+    <h1>Mon Panier</h1>
+    <a href="foodbox.html">Retour à l'accueil</a>
+  </header>
+
+  <main>
+    <h2>Produits dans votre panier :</h2>
+    <ul id="liste-panier"></ul>
+    <p id="total">Total : 0 MAD</p>
+  </main>
+
+  <script>
+    const panier = JSON.parse(localStorage.getItem("panier")) || [];
+    const listePanier = document.getElementById("liste-panier");
+    const totalElement = document.getElementById("total");
+
+    let total = 0;
+
+    if (panier.length === 0) {
+      listePanier.innerHTML = "<li>Votre panier est vide.</li>";
+    } else {
+      panier.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.nom} - ${item.prix} MAD`;
+        listePanier.appendChild(li);
+        total += item.prix;
+      });
+    }
+
+    totalElement.textContent = "Total : " + total + " MAD";
+  </script>
+</body>
+</html>
